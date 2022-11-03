@@ -1,0 +1,266 @@
+body {
+  //background: linear-gradient(to bottom, #efd866, #88c1f3);
+  background-color: #191e29 !important;
+  background-attachment: fixed;
+}
+
+.MuiBox-root-1 {
+  height: calc(100vh - 160px);
+}
+
+.MuiFormControlLabel-root {
+  margin-left: 100px !important;
+  cursor: not-allowed!important;
+}
+
+.MuiFormControlLabel-label.Mui-disabled {
+  color: #fff !important;
+}
+
+.MuiButtonBase-root.MuiIconButton-root.PrivateSwitchBase-root-28.MuiCheckbox-root.MuiCheckbox-colorSecondary.MuiIconButton-colorSecondary {
+  cursor: not-allowed!important;
+}
+
+.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-2{
+  margin-top: 25px;
+  justify-content: center;
+}
+
+.signInContainer {
+  height: 100%;
+  display: flex;
+}
+
+.MuiFormControl-fullWidth {
+  margin: 0 10% !important;
+  width: 80% !important;
+}
+
+.MuiInputLabel-shrink {
+  background: #191e29 !important;
+  z-index: 20;
+  padding: 0 10px !important;
+}
+
+.MuiInput-underline {
+  &:before {
+    left: -15px !important;
+    bottom: -8px !important;
+    top: -8px;
+    border: 2px solid rgb(255 255 255) !important;
+    border-radius: 17px !important;
+  }
+
+  &:after {
+    transform: scaleX(0) !important;
+  }
+
+  &:hover {
+    &:before {
+      border-bottom: 2px solid rgb(255 255 255) !important;
+    }
+  }
+}
+
+.MuiPaper-root {
+  color: #fff !important;
+  background-color: transparent !important;
+}
+
+.MuiPaper-elevation1 {
+  box-shadow: none !important;
+}
+
+.MuiStepIcon-root {
+  color: #132d46 !important;
+
+  &.MuiStepIcon-active, &.MuiStepIcon-completed {
+    color: #01c38d !important;
+  }
+}
+
+.MuiInputBase-input {
+  color: #fff !important;
+}
+
+.MuiStepLabel-label, .MuiStepIcon-text, .MuiIconButton-label > svg {
+  color: #fff !important;
+  fill: #fff !important;
+}
+
+.connectWallet {
+  display: inline-block;
+  align-self: center;
+  margin: auto;
+
+  button {
+    padding: 15px 20px;
+    background: linear-gradient(45deg, #7a7abf, #313149);
+    border: none;
+    color: white;
+    border-radius: 10px;
+    margin-top: 30px;
+    width: 100%;
+    font-size: 17px;
+
+    &:hover {
+      background: #6868a6;
+    }
+  }
+}
+
+//.tooltip {
+//  position: relative;
+//  display: inline-block;
+//}
+//
+//.tooltip .tooltiptext {
+//  visibility: hidden;
+//  width: 120px;
+//  background-color: black;
+//  color: #fff;
+//  text-align: center;
+//  border-radius: 6px;
+//  padding: 5px 0;
+//
+//  /* Position the tooltip */
+//  position: absolute;
+//  z-index: 1;
+//}
+//
+//.tooltip:hover .tooltiptext {
+//  visibility: visible;
+//}
+
+//.MuiTooltip-popper {
+//  left: auto !important;
+//  right: 0 !important;
+//}
+
+.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-1 {
+  display: inline-block;
+}
+
+.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-4 {
+  display: inline-block;
+  margin: 0 10px;
+  //width: 70px;
+  flex-basis: 70px;
+  .MuiInput-underline {
+    &:before {
+      left: -15px !important;
+      bottom: -12px !important;
+      top: -12px !important;
+      border: 2px solid rgb(255, 255, 255) !important;
+      border-radius: 17px !important;
+    }
+  }
+
+}
+
+.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-7 {
+  display: inline-block;
+  margin: 0 10px;
+  flex-basis: fit-content;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+    color: #fff !important;
+}
+
+.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-12 {
+  text-align-last: center;
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.MuiOutlinedInput-input {
+  text-align-last: left;
+}
+
+select {
+  appearance: none;
+  outline: none;
+}
+
+.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiNativeSelect-icon.MuiNativeSelect-iconStandard {
+  //display: none;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  color: #ffffff;
+}
+
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+  border-color: #ffffff !important;
+  border-radius: 20px !important;
+  border-width: 2px !important;
+}
+
+.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
+  color: #ffffff !important;
+}
+
+.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLabel-animated.MuiInputLabel-shrink.MuiInputLabel-standard.MuiFormLabel-colorPrimary.MuiFormLabel-filled.css-1c2i806-MuiFormLabel-root-MuiInputLabel-root {
+  visibility: hidden;
+}
+
+.fullPageLength {
+  width: 100%;
+  text-align: center;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-text {
+  color: rgba(255, 0, 0, 0.66);
+}
+
+#addNewFeeButton {
+  color: #01c38d;
+}
+
+.needHelp {
+  position: absolute;
+  top: 25px;
+  right: 5%;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.delivery-dudes-logo {
+  position: absolute;
+  left: 4%;
+  top: 20px;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+
+.centeredComingSoon {
+  text-align-last:center;
+  opacity: 50%;
+}
+
+.column {
+  float: left;
+  width: 25%;
+  text-align: center !important;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
