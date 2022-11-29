@@ -28,15 +28,15 @@
                 icon: "https://absolute.url/to/icon.png" // TODO: Add icon
             }
 
-            let initData = await hashConnect.init(appData, "testnet");
+            let initData = await hashConnect.init(appData, "mainnet");
             let privateKey = initData.encryptionKey;
 
-            console.log(privateKey + ' is your private key');
+            // console.log(privateKey + ' is your private key');
 
             let state = await hashConnect.connect();
             setTopic(state);
 
-            let paringString = hashConnect.generatePairingString(state, 'testnet', false);
+            let paringString = hashConnect.generatePairingString(state, 'mainnet', false);
 
             hashConnect.findLocalWallets();
             hashConnect.connectToLocalWallet();
@@ -60,12 +60,14 @@
                 }
             ];
 
-            console.log(feeArr)
+            // console.log(feeArr)
             return feeArr.map((fee, index) => {
                 return (
                     <Grid item xs={12} key={index}>
                         <Grid item xs={7}>
                             <MuiTextField
+                                required
+                                inputProps={{pattern: '^(0|(?:[1-9]\\d)).(0|(?:[1-9]\\d)).(0|(?:[1-9]\\d*))(?:-([a-z]{5}))?$' }}
                                 id={`fee-address-${index}`}
                                 label={`AccountId ${index + 1}`}
                                 value={fee.address}
@@ -74,15 +76,18 @@
                         </Grid>
                         <Grid item xs={4}>
                             <MuiTextField
+                                required
                                 id={`fee-fee-${index}`}
                                 type="number"
                                 label={`Fee ${index + 1}`}
                                 value={fee.fee}
+                                // validate={validateFeeCost}
                                 onChange={(e) => {setFeeArr(feeArr.map(el => (el.id === fee.id ? {...el, fee: e.target.value} : el)))}}
                             />
                         </Grid>
                         <Grid item xs={4}>
                             <MuiTextField
+                                required
                                 id="standard-select-currency"
                                 select
                                 // label="Fee Type"
@@ -110,9 +115,36 @@
         }
 
         // Some field validations
+
+
+
+
+        const validateFeeCost = value => {
+            let errorMessage;
+            if (!isNaN(parseFloat(value)) && !isNaN(value - 0) ) {
+                errorMessage = 'Fee must be a number';
+            }
+            if (value === '') {
+                errorMessage = 'Field is empty';
+            }
+            return errorMessage;
+        };
+
+        const validateAddress = value => {
+            console.log('address: ' + value[0].address)
+            let errorMessage;
+            if (/^(0|(?:[1-9]\d)).(0|(?:[1-9]\d)).(0|(?:[1-9]\d*))(?:-([a-z]{5}))?$/.test(value[0].address)) {
+                errorMessage = 'Account Id not valid';
+            }
+            if (value[0].address === '') {
+                errorMessage = 'Field is empty';
+            }
+            return errorMessage;
+        };
+
         const validateTokenName = value => {
             let errorMessage;
-            if (value.length > 5) {
+            if (value.length > 100) {
                 errorMessage = 'Token Name must be 100 characters or less';
             }
             if (value === '') {
@@ -123,7 +155,7 @@
 
         const validateTokenSymbol = value => {
             let errorMessage;
-            if (value.length > 5) {
+            if (value.length > 100) {
                 errorMessage = 'Token Symbol must be 100 characters or less';
             }
             if (value === '') {
@@ -134,7 +166,6 @@
 
         const validateInitialSupply = value => {
             let errorMessage;
-            console.log(value)
             if (value == undefined) {
                 return 'Field is empty';
             }
@@ -152,7 +183,7 @@
 
         const validateMaxSupply = value => {
             let errorMessage;
-            console.log(value)
+            // console.log(value)
             if (value == undefined) {
                 return 'Field is empty';
             }
@@ -171,9 +202,9 @@
 
         const validateMemo = value => {
             let errorMessage;
-            if (value.length > 5) {
-                errorMessage = 'Memo must be 100 characters or less';
-            }
+            // if (value.length > 5) {
+            //     errorMessage = 'Memo must be 100 characters or less';
+            // }
             if (value === '') {
                 errorMessage = 'Field is empty';
             }
@@ -214,7 +245,7 @@
                                 }}
                                 onSubmit={async (values) => {
                                     await sleep(3000);
-                                    console.log('values', values);
+                                    // console.log('values', values);
                                     TokenCreator(values, topic, hashConnect, accountId, feeArr);
                                 }}
                             >
@@ -222,13 +253,17 @@
                                 <FormikStep label="Token Info">
                                     <Box paddingBottom={2}>
                                         <Tooltip title="Name of your token" placement="right-start">
-                                            <Field fullWidth className="tooltip" validate={validateTokenName} name="tokenName" component={TextField} label="Token Name"> </Field>
+                                            <Field fullWidth className="tooltip"
+                                                   validate={validateTokenName}
+                                                   name="tokenName" component={TextField} label="Token Name"> </Field>
                                         </Tooltip>
                                     </Box>
 
                                     <Box paddingBottom={2}>
                                         <Tooltip title="Symbol of your token" placement="right-start">
-                                            <Field fullWidth name="tokenSymbol" validate={validateTokenSymbol} component={TextField} label="Token Symbol"/>
+                                            <Field fullWidth name="tokenSymbol"
+                                                   validate={validateTokenSymbol}
+                                                   component={TextField} label="Token Symbol"/>
                                         </Tooltip>
                                     </Box>
                                 </FormikStep>
@@ -236,12 +271,16 @@
                                 <FormikStep label="Supply Data">
                                     <Box paddingBottom={2}>
                                         <Tooltip title="Number of tokens sent to the treasury" placement="right">
-                                            <Field fullWidth name="initialSupply" validate={validateInitialSupply} component={TextField} type={'number'} label="Initial Supply"/>
+                                            <Field fullWidth name="initialSupply"
+                                                   validate={validateInitialSupply}
+                                                   component={TextField} type={'number'} label="Initial Supply"/>
                                         </Tooltip>
                                     </Box>
                                     <Box paddingBottom={2}>
                                         <Tooltip title="Max number of tokens in circulation" placement="right">
-                                            <Field fullWidth name="maxSupply" validate={validateMaxSupply} component={TextField} type={'number'} label="Max Supply"/>
+                                            <Field fullWidth name="maxSupply"
+                                                   validate={validateMaxSupply}
+                                                   component={TextField} type={'number'} label="Max Supply"/>
                                         </Tooltip>
                                     </Box>
                                     <Box paddingBottom={2}>
@@ -272,12 +311,15 @@
                                     <Box paddingBottom={2}>
                                         <Tooltip title="Epoch second at which the token expires" placement="right">
                                             <Field fullWidth name="expirationTime" component={TextField}
+                                                   type="number"
                                                    label="Expiration Time"/>
                                         </Tooltip>
                                     </Box>
                                     <Box paddingBottom={2}>
                                         <Tooltip title="Publicly visible memo about the token" placement="right">
-                                            <Field fullWidth name="memo" component={TextField} validate={validateMemo} label="Memo"/>
+                                            <Field fullWidth name="memo" component={TextField}
+                                                   validate={validateMemo}
+                                                   label="Memo"/>
                                         </Tooltip>
                                     </Box>
                                 </FormikStep>
@@ -320,7 +362,7 @@
 
         function review(values) {
             function renderFeesList() {
-                console.log(props.feeArr)
+                // console.log(props.feeArr)
                 let feeElementsArr = [];
                 if(props.feeArr.length==0)
                     return <p><em>None</em></p>
@@ -370,7 +412,7 @@
         return (
             <Formik
                 {...props}
-                validationSchema={isReviewStep() ? null : currentChild.props.validationSchema}
+                // validationSchema={isReviewStep() ? null : currentChild.props.validationSchema}
                 onSubmit={async (values, helpers) => {
                     if (isReviewStep()) {
                         await props.onSubmit(values, helpers);

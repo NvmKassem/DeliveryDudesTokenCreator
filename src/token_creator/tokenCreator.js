@@ -44,10 +44,19 @@ async function TokenCreator(valuesArr, topic, hashconnect, accountId, customFees
     feeScheduleKey = PrivateKey.generateED25519();
     feeSchedulePublicKey = feeScheduleKey.publicKey;
 
-    const provider = hashconnect.getProvider('testnet', topic, accountId);
+    const provider = hashconnect.getProvider('mainnet', topic, accountId);
     const signer = hashconnect.getSigner(provider);
 
     console.log("about to create the transaction")
+
+    let expirationTime;
+    if (!isNaN(valuesArr.expirationTime)) {
+        expirationTime = Timestamp.fromDate(new Date(new Date().setDate(new Date().getDate() + parseInt(valuesArr.expirationTime))))
+        console.log('expiration: ' + parseInt(valuesArr.expirationTime))
+    } else {
+        expirationTime = Timestamp.fromDate(new Date(new Date().setDate(new Date().getDate() + 90)))
+        console.log('expiration: ' + 90)
+    }
 
     let tokenCreateTx = await new TokenCreateTransaction()
         .setMaxTransactionFee(new Hbar(300))
@@ -73,7 +82,7 @@ async function TokenCreator(valuesArr, topic, hashconnect, accountId, customFees
         // .setAutoRenewAccountId(AccountId.fromString(accountId))
         // .setAutoRenewPeriod()
         .setFreezeDefault(false)
-        .setExpirationTime(Timestamp.fromDate(new Date(new Date().setDate(new Date().getDate() + parseInt(valuesArr.expirationTime)))))
+        .setExpirationTime(expirationTime)
         .freezeWithSigner(signer)
 
     //Custom Fees
@@ -104,7 +113,7 @@ async function TokenCreator(valuesArr, topic, hashconnect, accountId, customFees
 
     console.log("about to receive the transaction")
 
-    console.log(`- Created token with ID: ${tokenId} \n`);
+    // console.log(`- Created token with ID: ${tokenId} \n`);
     console.log(`- adminKey: ${adminKey}`);
     console.log(`- adminPublicKey: ${adminPublicKey}`);
     console.log(`- supplyKey: ${supplyKey}`);
